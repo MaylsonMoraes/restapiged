@@ -4,9 +4,9 @@ const mongo = require("mongodb").MongoClient
 const app = express()
 app.use(express.json())
 
-app.post("/trip", (req, res) => {
+app.post("/Documento", (req, res) => {
     const name = req.body.name
-    trips.insertOne({ name: name }, (err, result) => {
+    Documentos.insertOne({ name: name }, (err, result) => {
         if (err) {
         console.error(err)
         res.status(500).json({ err: err })
@@ -16,14 +16,14 @@ app.post("/trip", (req, res) => {
         res.status(200).json({ ok: true })
     })
   })
-  app.get("/trips", (req, res) => {
-    trips.find().toArray((err, items) => {
+  app.get("/Documentos", (req, res) => {
+    Documentos.find().toArray((err, items) => {
       if (err) {
         console.error(err)
         res.status(500).json({ err: err })
         return
       }
-      res.status(200).json({ trips: items })
+      res.status(200).json({ Documentos: items })
     })
   })
   app.post("/expense", (req, res) => {
@@ -36,7 +36,7 @@ app.post("/trip", (req, res) => {
   app.listen(3000, () => console.log("Server ready"))
   const url = "mongodb://localhost:27017"
 
-  let db, trips, expenses
+  let db, Documentos, expenses
 
 mongo.connect(
   url,
@@ -50,7 +50,7 @@ mongo.connect(
       return
     }
     db = client.db("tripcost")
-    trips = db.collection("trips")
+    Documentos = db.collection("Documentos")
     expenses = db.collection("expenses")
   }
 )
